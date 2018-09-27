@@ -22,28 +22,28 @@ set -e
 
 source ./cico_setup.sh
 
-check_if_tagged
-proceed=$?
-echo "proceed is $proceed"
-if [ $proceed -eq '0' ]
-then
-    exit 0
-fi
+#check_if_tagged
+#proceed=$?
+#echo "proceed is $proceed"
+#if [ $proceed -eq '0' ]
+#then
+#    exit 0
+#fi
 
 setup
 
 # Build kubernetes-model image
 docker build -t kubernetes-client --build-arg PUBRING=$PUBRING \
-    SEC_JENKINS=$SEC_JENKINS \
-    SECRING=$SECRING \
-    TRUSTDB=$TRUSTDB \
-    GPG_PASSPHRASE=$GPG_PASSPHRASE \
-    SONATYPE_USERNAME=$SONATYPE_USERNAME \
-    SONATYPE_PASSWORD=$SONATYPE_PASSWORD \
+    --build-arg SEC_JENKINS=$SEC_JENKINS \
+    --build-arg SECRING=$SECRING \
+    --build-arg TRUSTDB=$TRUSTDB \
+    --build-arg GPG_PASSPHRASE=$GPG_PASSPHRASE \
+    --build-arg SONATYPE_USERNAME=$SONATYPE_USERNAME \
+    --build-arg SONATYPE_PASSWORD=$SONATYPE_PASSWORD \
     .
 
-CID=$(docker run --detach=true -t kubernetes-client)
-# CID=$(docker run --detach=true -t kubernetes-client fabric8/maven-builder)
-build
-
-release
+#CID=$(docker run --detach=true -t kubernetes-client)
+## CID=$(docker run --detach=true -t kubernetes-client fabric8/maven-builder)
+#build
+#
+#release

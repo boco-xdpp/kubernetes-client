@@ -49,21 +49,22 @@ RUN curl --retry 999 --retry-max-time 0  -sSL https://bintray.com/artifact/downl
   rm -f helm.zip && \
   mv helm /usr/bin/
 
-ARG PUBRING \
-  SEC_JENKINS \
-  SECRING \
-  TRUSTDB \
-  GPG_PASSPHRASE \
-  SONATYPE_USERNAME \
-  SONATYPE_PASSWORD
+ARG PUBRING 
+ARG SEC_JENKINS 
+ARG SECRING 
+ARG TRUSTDB 
+ARG GPG_PASSPHRASE 
+ARG SONATYPE_USERNAME 
+ARG SONATYPE_PASSWORD
 
 # put gpg keys in gpg home directory
 ENV GPG_HOME $HOME/.gnupg \
   GPG_PASSPHRASE $GPG_PASSPRHASE
-RUN base64 --decode $PUBRING > pubring.gpg \
-  base64 --decode $SEC_JENKINS > sec_jenkins.gpg \
-  base64 --decode $SECRING > secring.gpg \
-  base64 --decode $TRUSTDB > trustdb.gpg
+
+RUN base64 --decode $PUBRING > pubring.gpg 
+RUN  base64 --decode $SEC_JENKINS > sec_jenkins.gpg 
+RUN  base64 --decode $SECRING > secring.gpg 
+RUN  base64 --decode $TRUSTDB > trustdb.gpg
 
 # Maven
 RUN curl -L http://mirrors.ukfast.co.uk/sites/ftp.apache.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz | tar -C /opt -xzv
