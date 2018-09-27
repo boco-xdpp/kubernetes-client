@@ -79,12 +79,15 @@ function check_if_tagged() {
 
   head=$(git ls-remote https://github.com/fabric8io/kubernetes-client.git cico-test | cut -c1-40)
   latest_tagged=$(git ls-remote --tags https://github.com/fabric8io/kubernetes-client.git | grep $head)
+  echo $latest_tagged
 
   if [ -z "$latest_tagged" ]
   then
+    is_latest_tagged=1
     echo 'Latest tagged commit is not tagged. No need to run the release pipeline'
     return 0
   else
+    is_latest_tagged=0
     echo 'Latest commit is tagged. Proceeding the release pipeline'
     return 1
   fi

@@ -24,9 +24,10 @@ source ./cico_setup.sh
 
 check_if_tagged
 proceed=$?
+echo "proceed is $proceed"
 if [ $proceed -eq '0' ]
 then
-    exit
+    exit 0
 fi
 
 setup
